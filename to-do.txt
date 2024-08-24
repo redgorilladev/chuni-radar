@@ -1,0 +1,37 @@
+data fetching
+    - find a way to only insert unique rows when running the getData function
+
+features/functions
+    - limit results to X per page or load more button / on scroll
+    - add a date updated note
+    - featured chart / random chart 
+
+CSS / Styling
+    - add header, title/logo, menu?, filter options
+    - chart jacket size being 0 before the image loads?
+    - make search bar position sticky? when scrolling past
+    - fix layout for very long song titles on chart page e.g. id 771
+    - header logo shifts a little to the right on chart page compared to search page, mobile layout seems fine
+
+canvas
+    - fix the animation sometimes not running on refresh
+    - '?' too low on mobile layout, working fine on desktop layout?
+
+
+DB
+    - add radar attributes for every chart
+    - look into using this for searching https://sequelize.org/docs/v6/getting-started/
+
+Search
+    - filter by radar attributes
+    - add expandable section for fitlers, e.g. check boxes for expert/ultima/master
+
+Chart page
+    - error check the params.id for chart GET route
+    - redirect to youtube search for that chart
+    - comment section for chart discussion
+
+
+how to host SQL DB online for production use
+
+create git hub repo (!!!!!clear/ignore all private data first!!!!!)
