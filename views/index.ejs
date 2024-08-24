@@ -1,0 +1,88 @@
+<div class="title">
+  <% if (searchOptions != null) { %>
+  <h2 class="page-header">
+    <%= result.length %> Results for "<%= searchOptions %>"
+  </h2>
+  <% } else {%>
+  <h2 class="page-header">Recently Added</h2>
+  <% } %>
+</div>
+<div class="search">
+  <form action="" method="GET" class="input-form">
+    <div class="form-row">
+      <input
+        type="text"
+        name="search"
+        id="search-input"
+        placeholder="enter song title or artist name"
+      />
+      <button type="submit" class="search-btn">
+        <img src="/search_black_24dp.svg" alt="" />
+      </button>
+      <!-- <button type="button" id="search-filter-btn">filters</button> -->
+    </div>
+    <!-- <div class="form-row">
+      <div class="difficulty-filters">
+        Difficulties:
+        <label for="expertCheck">Expert</label>
+        <input type="checkbox" name="expertCheck" id="expertCheck" />
+        <label for="masterCheck">Master</label>
+        <input type="checkbox" name="masterCheck" id="masterCheck" />
+        <label for="ultimaCheck">Ultima</label>
+        <input type="checkbox" name="ultimaCheck" id="ultimaCheck" />
+      </div>
+    </div> -->
+  </form>
+</div>
+
+<div class="grid-container">
+  <% result.forEach(item => { %>
+  <div class="container">
+    <div class="item-title">
+      <a class="song-title" href="/<%= item.chart_id %>"><%=item.title%></a>
+      <span class="artist-name"><%=item.artist%></span>
+    </div>
+    <div class="item-assets">
+      <img
+        class="song-jacket skeleton"
+        src="https://new.chunithm-net.com/chuni-mobile/html/mobile/img/<%=item.image_file_name%>"
+        alt=""
+        loading="lazy"
+      />
+      <div class="radar-container">
+        <canvas
+          class="radar-chart"
+          height="200"
+          width="200"
+          data-pianoValue="<%=item.piano%>"
+          data-staminaValue="<%=item.stamina%>"
+          data-slideValue="<%=item.slide%>"
+          data-trickyValue="<%=item.tricky%>"
+          data-crosshandValue="<%=item.crosshand%>"
+          data-airValue="<%=item.air%>"
+        ></canvas>
+        <img
+          class="radar-layout"
+          src="/radar-track-names.png"
+          alt=""
+          height="200px"
+          width="200px"
+        />
+      </div>
+    </div>
+    <div class="item-details">
+      <div class="song-category"><%= item.category %></div>
+      <% if (item.difficulty) {%> <% if (item.difficulty == "master") { %>
+      <div class="song-level master">Master <%=item.lev_mas%></div>
+      <% } %> <% if (item.difficulty == "expert") { %>
+      <div class="song-level expert">Expert <%=item.lev_exp%></div>
+      <% } %> <% } else { %>
+      <div class="song-level master">Master <%=item.lev_mas%></div>
+      <% } %>
+    </div>
+  </div>
+  <% }); %>
+</div>
+<button id="scroll-top-btn" class="scroll-top">
+  <img src="/arrow-up-circle.svg" alt="" />
+</button>

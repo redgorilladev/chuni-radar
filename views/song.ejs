@@ -1,0 +1,96 @@
+<div class="layout-container">
+    <div class="songpage-container">
+        <div class="grid-container">
+            <div class="song-header">
+            <% if (result.length > 0) { %>
+            <div class="song-text">
+                <h2><%= result[0].title %></h2>
+                <h6><%= result[0].artist %></h6>
+                <h6><%= result[0].category %></h6>
+            </div>
+            <img
+                class="song-jacket-large skeleton"
+                src="https://new.chunithm-net.com/chuni-mobile/html/mobile/img/<%=result[0].image_file_name%>"
+                alt=""
+                loading="lazy"
+            />
+            <% } else { %>
+                <h2>song data unavailable</h2>
+            <% } %>
+            </div>
+        <div class="difficulty-btns">
+            <button id="expertBtn" class="btn-expert">Expert</button>
+            <button id="masterBtn" class="btn-master active-btn active-master">Master</button>
+            <% result.forEach(item => { %>
+                <% if (item.difficulty === "ultima") {%>
+                    <button id="ultimaBtn" class="btn-ultima">Ultima</button>
+                <% } %>
+            <% }); %>
+        </div>
+
+        <% result.forEach(item => { %>
+        <div class="container-nobg" data-difficulty="<%= item.difficulty %>">
+            <div class="large-radar">
+                <div class="radar-container-nobg">
+                    <canvas
+                    class="radar-chart"
+                    height="200"
+                    width="200"
+                    data-pianoValue="<%=item.piano%>"
+                    data-staminaValue="<%=item.stamina%>"
+                    data-slideValue="<%=item.slide%>"
+                    data-trickyValue="<%=item.tricky%>"
+                    data-crosshandValue="<%=item.crosshand%>"
+                    data-airValue="<%=item.air%>"
+                    ></canvas>
+                    <img
+                    class="radar-layout"
+                    src="/radar-track-names.png"
+                    alt=""
+                    height="200px"
+                    width="200px"
+                    />
+                </div>
+            </div>
+            <div class="item-details-col">
+                <% if (item.difficulty) { %>
+                    <% if (item.difficulty == 'master') {%>
+                    <div class="diff-level master">Master <%= item.lev_mas %></div>
+                    <% } else if (item.difficulty == 'expert') { %>
+                    <div class="diff-level expert">Expert <%= item.lev_exp %></div>
+                <% } else { %>
+                    <div class="diff-level ultima">Ultima <%= item.lev_ult %></div>
+                    <% } %>
+            <% } %>
+            </div>
+        </div>
+        <% }); %>
+            <div id="question-radar" class="container-nobg">
+            <div class="large-radar">
+                <div class="radar-container-nobg">
+                    <canvas
+                    class="radar-chart"
+                    height="200"
+                    width="200"
+                    data-pianoValue
+                    data-staminaValue
+                    data-slideValue
+                    data-trickyValue
+                    data-crosshandValue
+                    data-airValue
+                    ></canvas>
+                    <img
+                    class="radar-layout"
+                    src="/radar-track-names.png"
+                    alt=""
+                    height="200px"
+                    width="200px"
+                    />
+                </div>
+            </div>
+            <div class="item-details-col">
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
