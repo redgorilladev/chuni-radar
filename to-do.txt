@@ -1,9 +1,10 @@
+! = fix before ver 1 public
+
 data fetching
     - find a way to only insert unique rows when running the getData function
 
 features/functions
     - limit results to X per page or load more button / on scroll
-    - add a date updated note
     - featured chart / random chart 
 
 CSS / Styling
@@ -19,6 +20,7 @@ canvas
 
 
 DB
+    - id 2671 is deleted from radar table but cant re-add that song id due to foreign key constraint???? but the radar still shows on the site
     - add radar attributes for every chart
     - look into using this for searching https://sequelize.org/docs/v6/getting-started/
 
@@ -28,10 +30,8 @@ Search
 
 Chart page
     - error check the params.id for chart GET route
-    - redirect to youtube search for that chart
+    - whichever diff is clicked on search page, have the chart page activate that diff by default instead of master / index[0]
     - comment section for chart discussion
 
 
 how to host SQL DB online for production use
-
-create git hub repo (!!!!!clear/ignore all private data first!!!!!)

@@ -1,7 +1,9 @@
 let filterBtn = document.getElementById("search-filter-btn");
 const filterDiv = document.getElementsByClassName("difficulty-filters");
 
-filterBtn.addEventListener("click", openFilters);
+if (filterBtn != null) {
+  filterBtn.addEventListener("click", openFilters);
+}
 
 function openFilters() {
   for (let i = 0; i < filterDiv.length; i++) {

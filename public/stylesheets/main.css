@@ -20,7 +20,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
+  margin-top: 1rem;
 }
 
 h6 {
@@ -231,11 +231,38 @@ h6 {
   z-index: 99;
 }
 
+.date-updated {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.chart-link {
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.video-icon {
+  width: 50px;
+  height: auto;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
   gap: 1rem;
   justify-items: center;
+}
+
+.width-100 {
+  width: 100%;
 }
 
 .container {

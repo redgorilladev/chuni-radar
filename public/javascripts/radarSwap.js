@@ -11,11 +11,31 @@ if (ultimaBtn != null) {
   ultimaBtn.addEventListener("click", showUltima);
 }
 
-function initialShow() {
-  for (let i = 0; i < 1; i++) {
-    radarContainers[i].classList.add("flex-visible");
+window.addEventListener("load", function () {
+  const diff = window.location.hash.substring(1);
+
+  if (diff != "") {
+    if (diff == "master") {
+      showMaster();
+    } else if (diff == "expert") {
+      showExpert();
+    } else if (diff == "ultima") {
+      showUltima();
+    }
+  } else {
+    questionRadar.classList.add("flex-visible");
   }
-}
+});
+
+// function initialShow() {
+//   if (radarContainers[0].dataset.difficulty == "") {
+//     questionRadar.classList.add("flex-visible");
+//   } else {
+//     for (let i = 0; i < 1; i++) {
+//       radarContainers[i].classList.add("flex-visible");
+//     }
+//   }
+// }
 
 function showMaster() {
   let diffFound = false;
@@ -92,4 +112,4 @@ function showUltima() {
   }
 }
 
-initialShow();
+// initialShow();

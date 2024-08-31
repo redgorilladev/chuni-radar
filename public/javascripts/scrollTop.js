@@ -1,6 +1,8 @@
-let scrollTop = document.getElementById("scroll-top-btn");
+const scrollTop = document.getElementById("scroll-top-btn");
 
-scrollTop.addEventListener("click", toTop);
+if (scrollTop != null) {
+  scrollTop.addEventListener("click", toTop);
+}
 
 window.onscroll = function () {
   scrollFunction();

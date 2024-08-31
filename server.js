@@ -22,13 +22,13 @@ const sqlLongTitle = "SELECT * FROM songs WHERE id = 771;";
 const sqlAll =
   "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, lev_exp, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.id = radar.chart_id ORDER BY chart_id DESC;";
 const sqlSearch =
-  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, lev_exp, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.id = radar.chart_id WHERE title REGEXP ? OR artist REGEXP ? ORDER BY chart_id;";
+  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, lev_exp, lev_ult, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.id = radar.chart_id WHERE title REGEXP ? OR artist REGEXP ? ORDER BY chart_id;";
 const sqlID =
   "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, lev_exp, lev_ult, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.id = radar.chart_id WHERE songs.chart_id = ?";
 const sql =
   "INSERT INTO songs (chart_id, category, title, artist, lev_exp, lev_mas, image_file_name) VALUES ?";
 const sqlRadar =
-  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air FROM songs LEFT JOIN radar ON songs.id = radar.chart_id ORDER BY chart_id DESC LIMIT 25;";
+  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.id = radar.chart_id ORDER BY chart_id DESC LIMIT 25;";
 
 // "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air FROM songs LEFT JOIN radar ON songs.id = radar.chart_id ORDER BY chart_id DESC LIMIT 10;"
 // "SELECT title, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air FROM songs INNER JOIN radar ON songs.id = radar.chart_id;"
@@ -85,6 +85,7 @@ function insertFromArray() {
 // pull data from chunithm music.json
 // push desired data into songs array
 // run SQL query to insert all data from songs array into MySQL DB
+// add function here to query all songs, store the chart id's in an array, add if to check if chart id is in the array, if so skip. ideally this will only insert unqiue songs automatically
 async function getData() {
   const url = "https://chunithm.sega.jp/storage/json/music.json";
   try {

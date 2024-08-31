@@ -39,7 +39,9 @@
   <% result.forEach(item => { %>
   <div class="container">
     <div class="item-title">
-      <a class="song-title" href="/<%= item.chart_id %>"><%=item.title%></a>
+      <a class="song-title" href="/<%= item.chart_id %>#<%= item.difficulty %>"
+        ><%=item.title%></a
+      >
       <span class="artist-name"><%=item.artist%></span>
     </div>
     <div class="item-assets">
@@ -76,11 +78,15 @@
       <div class="song-level master">Master <%=item.lev_mas%></div>
       <% } %> <% if (item.difficulty == "expert") { %>
       <div class="song-level expert">Expert <%=item.lev_exp%></div>
+      <% } %> <% if (item.difficulty == "ultima") { %>
+      <div class="song-level ultima">Ultima <%= item.lev_ult %></div>
       <% } %> <% } else { %>
+      <!--if no radars exist show master info -->
       <div class="song-level master">Master <%=item.lev_mas%></div>
       <% } %>
     </div>
   </div>
+
   <% }); %>
 </div>
 <button id="scroll-top-btn" class="scroll-top">
