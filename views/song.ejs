@@ -20,7 +20,7 @@
             </div>
         <div class="difficulty-btns">
             <button id="expertBtn" class="btn-expert">Expert</button>
-            <button id="masterBtn" class="btn-master active-btn active-master">Master</button>
+            <button id="masterBtn" class="btn-master">Master</button>
             <% result.forEach(item => { %>
                 <% if (item.difficulty == 'ultima') {%>
                     <button id="ultimaBtn" class="btn-ultima">Ultima</button>
@@ -33,7 +33,7 @@
             <div class="large-radar">
                 <div class="radar-container-nobg">
                     <canvas
-                    class="radar-chart"
+                    class="radar-chart pulse"
                     height="200"
                     width="200"
                     data-pianoValue="<%=item.piano%>"
@@ -81,7 +81,7 @@
             <div class="large-radar">
                 <div class="radar-container-nobg">
                     <canvas
-                    class="radar-chart"
+                    class="radar-chart pulse"
                     height="200"
                     width="200"
                     data-pianoValue

@@ -97,6 +97,19 @@ h6 {
   color: white;
 }
 
+.pulse {
+  animation: radar-pulse 1s linear infinite alternate;
+}
+
+@keyframes radar-pulse {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
 .skeleton {
   opacity: 0.7;
   animation: skeleton-loading 1s linear infinite alternate;
@@ -146,6 +159,16 @@ h6 {
 
 .song-text {
   width: 50%;
+}
+
+.song-text > h2 {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 .song-title {
@@ -346,12 +369,11 @@ h6 {
 
 .radar-chart {
   z-index: 2;
-  /* width: 200px;
-  height: 200px; */
   width: 100%;
+  opacity: 0.5;
   height: auto;
   scale: 0;
-  transition: all 1s ease 0.5s;
+  transition: 1s ease 0.5s;
 }
 
 .animate-radar {

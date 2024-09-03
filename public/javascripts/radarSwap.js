@@ -27,16 +27,6 @@ window.addEventListener("load", function () {
   }
 });
 
-// function initialShow() {
-//   if (radarContainers[0].dataset.difficulty == "") {
-//     questionRadar.classList.add("flex-visible");
-//   } else {
-//     for (let i = 0; i < 1; i++) {
-//       radarContainers[i].classList.add("flex-visible");
-//     }
-//   }
-// }
-
 function showMaster() {
   let diffFound = false;
   console.log("master clicked");
@@ -111,5 +101,3 @@ function showUltima() {
     questionRadar.classList.remove("flex-visible");
   }
 }
-
-// initialShow();
