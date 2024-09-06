@@ -435,6 +435,26 @@ h6 {
   width: 90%;
 }
 
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: hsla(0, 0%, 0%, 0.6);
+  border-radius: 10px;
+}
+
+.offscreen {
+  position: absolute;
+  translate: -100%;
+}
+
+#openLoginForm {
+  position: absolute;
+  top: 15px;
+  left: 5px;
+}
+
 @media (max-width: 500px) {
   .grid-container {
     grid-template-columns: auto;

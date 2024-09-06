@@ -10,10 +10,29 @@
     <script src="/javascripts/filterMenu.js" defer></script>
     <script src="/javascripts/search.js" defer></script>
     <script src="/javascripts/radarSwap.js" defer></script>
+    <script src="/javascripts/loginMenu.js" defer></script>
     <title>Chuni Radar</title>
   </head>
   <body>
+    <button id="openLoginForm">admin</button>
     <%- include('../partials/header.ejs') %>
+    <div class="offscreen closed" id="login-div">
+      <form action="/auth" method="post" class="login-form">
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="enter username"
+        />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="enter password"
+        />
+        <button type="submit">Login</button>
+      </form>
+    </div>
     <div class="date-updated">updated: 25/08/24</div>
     <%- body %>
   </body>

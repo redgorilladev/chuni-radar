@@ -5,8 +5,8 @@
             <% if (result.length > 0) { %>
             <div class="song-text">
                 <h2><%= result[0].title %></h2>
-                <h6><%= result[0].artist %></h6>
-                <h6><%= result[0].category %></h6>
+                <div class="artist-name"><%= result[0].artist %></div>
+                <div class="artist-name"><%= result[0].category %></div>
             </div>
             <img
                 class="song-jacket-large skeleton"
@@ -111,7 +111,8 @@
         </div>
         </div>
         <div>
-            <form  method="post">
+            <form method="post">
+                <label for="pianoSelect">Piano</label>
                 <select name="pianoSelect" id="pianoSelect">
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -124,6 +125,7 @@
                     <option value="8">8</option>
                     <option value="9">9</option>
                 </select>
+                <label for="staminaSelect">Stamina</label>
                  <select name="staminaSelect" id="staminaSelect">
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -136,6 +138,7 @@
                     <option value="8">8</option>
                     <option value="9">9</option>
                 </select>
+                <label for="slideSelect">Slide</label>
                  <select name="slideSelect" id="slideSelect">
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -148,6 +151,7 @@
                     <option value="8">8</option>
                     <option value="9">9</option>
                 </select>
+                <label for="trickySelect">Tricky</label>
                 <select name="trickySelect" id="trickySelect">
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -160,6 +164,7 @@
                     <option value="8">8</option>
                     <option value="9">9</option>
                 </select>
+                <label for="crosshandSelect">Crosshand</label>
                 <select name="crosshandSelect" id="crosshandSelect">
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -171,7 +176,7 @@
                     <option value="7">7</option>
                     <option value="8">8</option>
                     <option value="9">9</option>
-                </select>
+                </select><label for="airSelect">Air</label>
                 <select name="airSelect" id="airSelect">
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -184,6 +189,7 @@
                     <option value="8">8</option>
                     <option value="9">9</option>
                 </select>
+                <label for="difficultySelect">Difficulty</label>
                 <select name="difficultySelect" id="difficultySelect">
                     <option value="expert">expert</option>
                     <option value="master">master</option>

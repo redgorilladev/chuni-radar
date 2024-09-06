@@ -1,7 +1,7 @@
 ! = fix before ver 1 public
 
 data fetching
-    - find a way to only insert unique rows when running the getData function
+    - find a way to only insert unique rows when running the getData function (check the song page post API maybe can re use)
 
 features/functions
     - limit results to X per page or load more button / on scroll
@@ -30,7 +30,8 @@ Search
 Chart page
     - error check the params.id for chart GET route
     - comment section for chart discussion
-    - create a front end to add/edit radar values
+    - !restrict access to radar update form via admin account!
 
 
-how to host SQL DB online for production use
+
+how to host SQL DB online for production use (railway?)

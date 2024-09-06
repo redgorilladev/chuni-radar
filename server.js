@@ -6,6 +6,7 @@ const express = require("express");
 const mysql = require("mysql2");
 const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
+const session = require("express-session");
 
 const app = express();
 
@@ -15,6 +16,14 @@ app.set("layout", "layouts/layout");
 app.use(expressLayouts);
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
+app.use(
+  session({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+app.use(express.json());
 
 // SQL queries
 const sqlSearch =
