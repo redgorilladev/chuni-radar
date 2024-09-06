@@ -17,18 +17,20 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 
 // SQL queries
-const sqlSelect = "SELECT * FROM songs ORDER BY chart_id DESC LIMIT 10;";
-const sqlLongTitle = "SELECT * FROM songs WHERE id = 771;";
-const sqlAll =
-  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, lev_exp, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.id = radar.chart_id ORDER BY chart_id DESC;";
 const sqlSearch =
-  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, lev_exp, lev_ult, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.id = radar.chart_id WHERE title REGEXP ? OR artist REGEXP ? ORDER BY chart_id;";
+  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, lev_exp, lev_ult, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.chart_id = radar.chart_id WHERE title REGEXP ? OR artist REGEXP ? ORDER BY chart_id;";
 const sqlID =
-  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, lev_exp, lev_ult, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.id = radar.chart_id WHERE songs.chart_id = ?";
+  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, lev_exp, lev_ult, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.chart_id = radar.chart_id WHERE songs.chart_id = ?";
 const sql =
   "INSERT INTO songs (chart_id, category, title, artist, lev_exp, lev_mas, image_file_name) VALUES ?";
 const sqlRadar =
-  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.id = radar.chart_id ORDER BY chart_id DESC LIMIT 25;";
+  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.chart_id = radar.chart_id ORDER BY chart_id DESC LIMIT 25;";
+const sqlInsert =
+  "INSERT INTO radar (piano, stamina, slide, tricky, crosshand, air, chart_id, difficulty) VALUES (?)";
+const sqlUpdate =
+  "UPDATE radar SET piano = ?, stamina = ?, slide = ?, tricky = ?, crosshand = ?, air = ? WHERE chart_id = ? AND difficulty = ?";
+const sqlExists =
+  "SELECT EXISTS(SELECT 1 FROM radar WHERE chart_id = ? AND difficulty = ?)";
 
 // "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air FROM songs LEFT JOIN radar ON songs.id = radar.chart_id ORDER BY chart_id DESC LIMIT 10;"
 // "SELECT title, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air FROM songs INNER JOIN radar ON songs.id = radar.chart_id;"
@@ -142,6 +144,49 @@ app.get("/:id", (req, res) => {
   connection.query(sqlID, `${chart_id}`, function (err, result) {
     if (err) throw err;
     res.render("song", { result: result });
+  });
+});
+
+app.post("/:id", (req, res) => {
+  const chart_id = req.params.id;
+  const piano = req.body.pianoSelect;
+  const stamina = req.body.staminaSelect;
+  const slide = req.body.slideSelect;
+  const tricky = req.body.trickySelect;
+  const crosshand = req.body.crosshandSelect;
+  const air = req.body.airSelect;
+  const difficulty = req.body.difficultySelect;
+
+  const values = [
+    piano,
+    stamina,
+    slide,
+    tricky,
+    crosshand,
+    air,
+    chart_id,
+    difficulty,
+  ];
+
+  connection.query(sqlExists, [chart_id, difficulty], function (err, result) {
+    if (err) throw err;
+    const exists = Object.values(result[0])[0];
+
+    if (exists === 0) {
+      connection.query(sqlInsert, [values], function (err, result) {
+        if (err) throw err;
+        res.redirect(`${chart_id}#${difficulty}`);
+      });
+    } else if (exists === 1) {
+      connection.query(
+        sqlUpdate,
+        [piano, stamina, slide, tricky, crosshand, air, chart_id, difficulty],
+        function (err, result) {
+          if (err) throw err;
+          res.redirect(`${chart_id}#${difficulty}`);
+        }
+      );
+    }
   });
 });
 
