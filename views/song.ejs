@@ -110,8 +110,9 @@
             </div>
         </div>
         </div>
+        <% if (admin) { %>
         <div>
-            <form method="post">
+            <form  method="post">
                 <label for="pianoSelect">Piano</label>
                 <select name="pianoSelect" id="pianoSelect">
                     <option value="0">0</option>
@@ -198,5 +199,6 @@
                 <button type="submit">Update</button>
             </form>
         </div>
+        <% } %>
     </div>
 </div>

@@ -13,6 +13,7 @@ CSS / Styling
     - make search bar position sticky when scrolling past
     - fix layout for very long song titles on chart page e.g. id 771
     - header logo shifts a little to the right on chart page compared to search page, mobile layout seems fine
+    -!change the login to only be visible on home page, move logout into the offscreen div!
 
 canvas
     - make scale animation work on song page
@@ -30,7 +31,7 @@ Search
 Chart page
     - error check the params.id for chart GET route
     - comment section for chart discussion
-    - !restrict access to radar update form via admin account!
+    - !check the admin login is secure enough!
 
 
 

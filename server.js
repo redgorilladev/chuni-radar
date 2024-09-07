@@ -18,9 +18,9 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 app.use(
   session({
-    secret: "secret",
-    resave: true,
-    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
   })
 );
 app.use(express.json());
@@ -128,7 +128,8 @@ async function getData() {
 }
 
 // index route, handles landing page and user search results
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
+  console.log(req.session);
   if (req.query.search != null && req.query.search != "") {
     const searchOptions = req.query.search;
     connection.query(
@@ -147,12 +148,51 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.post("/", (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+
+  if (username && password) {
+    connection.query(
+      "SELECT * FROM users WHERE username = ? AND password = ?",
+      [username, password],
+      function (err, results) {
+        if (err) throw err;
+
+        if (results.length > 0) {
+          req.session.loggedin = true;
+          res.redirect("/");
+        } else {
+          res.send("incorrect username or password");
+        }
+      }
+    );
+  }
+});
+
+app.get("/logout", (req, res) => {
+  console.log("before destroy:", req.session);
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log("after destroy:", req.session);
+    res.redirect("/");
+  });
+});
+
 app.get("/:id", (req, res) => {
   // add undefined/null/empty check for req.params.id ?
   const chart_id = req.params.id;
+  let admin;
+  if (req.session.loggedin) {
+    admin = true;
+  } else {
+    admin = false;
+  }
   connection.query(sqlID, `${chart_id}`, function (err, result) {
     if (err) throw err;
-    res.render("song", { result: result });
+    res.render("song", { result: result, admin: admin });
   });
 });
 

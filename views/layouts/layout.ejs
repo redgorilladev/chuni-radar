@@ -15,9 +15,10 @@
   </head>
   <body>
     <button id="openLoginForm">admin</button>
+    <a href="/logout">logout</a>
     <%- include('../partials/header.ejs') %>
     <div class="offscreen closed" id="login-div">
-      <form action="/auth" method="post" class="login-form">
+      <form action="/" method="post" class="login-form">
         <input
           type="text"
           name="username"
