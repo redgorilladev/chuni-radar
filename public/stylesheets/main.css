@@ -282,6 +282,7 @@ h6 {
   grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
   gap: 1rem;
   justify-items: center;
+  margin-bottom: 1rem;
 }
 
 .width-100 {
@@ -440,13 +441,22 @@ h6 {
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
-  background-color: hsla(0, 0%, 0%, 0.6);
-  border-radius: 10px;
+  /* background-color: hsla(0, 0%, 0%, 0.6);
+  border-radius: 10px; */
 }
 
 .offscreen {
   position: absolute;
   translate: -100%;
+  background-color: hsla(0, 0%, 0%, 0.6);
+  border-radius: 10px;
+}
+
+.logout-link {
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  background-color: white;
 }
 
 #openLoginForm {

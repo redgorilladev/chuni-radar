@@ -33,18 +33,15 @@ const sqlID =
 const sql =
   "INSERT INTO songs (chart_id, category, title, artist, lev_exp, lev_mas, image_file_name) VALUES ?";
 const sqlRadar =
-  "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.chart_id = radar.chart_id ORDER BY chart_id DESC LIMIT 25;";
+  "SELECT songs.id, title, artist, songs.chart_id, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.chart_id = radar.chart_id ORDER BY songs.id DESC LIMIT 18;";
 const sqlInsert =
   "INSERT INTO radar (piano, stamina, slide, tricky, crosshand, air, chart_id, difficulty) VALUES (?)";
 const sqlUpdate =
   "UPDATE radar SET piano = ?, stamina = ?, slide = ?, tricky = ?, crosshand = ?, air = ? WHERE chart_id = ? AND difficulty = ?";
 const sqlExists =
   "SELECT EXISTS(SELECT 1 FROM radar WHERE chart_id = ? AND difficulty = ?)";
+const sqlChartID = "SELECT chart_id FROM songs";
 
-// "SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air FROM songs LEFT JOIN radar ON songs.id = radar.chart_id ORDER BY chart_id DESC LIMIT 10;"
-// "SELECT title, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air FROM songs INNER JOIN radar ON songs.id = radar.chart_id;"
-
-let searchOptions;
 const songs = [];
 
 // static array for testing
@@ -93,11 +90,19 @@ function insertFromArray() {
   });
 }
 
+// query db for existing songs and store them in an array
 // pull data from chunithm music.json
-// push desired data into songs array
+// if the song doesnt already exist in our db then push desired data into songs array
 // run SQL query to insert all data from songs array into MySQL DB
-// add function here to query all songs, store the chart id's in an array, add if to check if chart id is in the array, if so skip. ideally this will only insert unqiue songs automatically
 async function getData() {
+  const existingSongs = [];
+  connection.query(sqlChartID, function (err, result) {
+    if (err) throw err;
+    result.forEach((item) => {
+      existingSongs.push(item.chart_id);
+    });
+  });
+
   const url = "https://chunithm.sega.jp/storage/json/music.json";
   try {
     const response = await fetch(url);
@@ -106,6 +111,9 @@ async function getData() {
     }
     const json = await response.json();
     json.forEach((song) => {
+      if (existingSongs.includes(Number(song.id))) {
+        return;
+      }
       if (song.id < 8000) {
         songs.push([
           song.id,
@@ -121,6 +129,10 @@ async function getData() {
   } catch (error) {
     console.error(error.message);
   }
+  //use this log to check which songs are going to be inserted, they should not already exist in the db
+  console.log(songs);
+
+  // insert the new songs into the db
   connection.query(sql, [songs], function (err, result) {
     if (err) throw err;
     console.log(result);
@@ -130,6 +142,13 @@ async function getData() {
 // index route, handles landing page and user search results
 app.get("/", (req, res) => {
   console.log(req.session);
+  let admin;
+  if (req.session.loggedin) {
+    admin = true;
+  } else {
+    admin = false;
+  }
+
   if (req.query.search != null && req.query.search != "") {
     const searchOptions = req.query.search;
     connection.query(
@@ -137,13 +156,21 @@ app.get("/", (req, res) => {
       [searchOptions, searchOptions],
       function (err, result) {
         if (err) throw err;
-        res.render("index", { result: result, searchOptions: searchOptions });
+        res.render("index", {
+          result: result,
+          searchOptions: searchOptions,
+          admin: admin,
+        });
       }
     );
   } else {
     connection.query(sqlRadar, function (err, result) {
       if (err) throw err;
-      res.render("index", { result: result, searchOptions: null });
+      res.render("index", {
+        result: result,
+        searchOptions: null,
+        admin: admin,
+      });
     });
   }
 });
@@ -238,5 +265,8 @@ app.post("/:id", (req, res) => {
     }
   });
 });
+
+//use this function to update the songs db whenever a new batch of songs are added
+//getData();
 
 app.listen(process.env.PORT || 3000);

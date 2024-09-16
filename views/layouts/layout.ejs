@@ -15,7 +15,6 @@
   </head>
   <body>
     <button id="openLoginForm">admin</button>
-    <a href="/logout">logout</a>
     <%- include('../partials/header.ejs') %>
     <div class="offscreen closed" id="login-div">
       <form action="/" method="post" class="login-form">
@@ -31,10 +30,14 @@
           id="password"
           placeholder="enter password"
         />
+        <% if (!admin) { %>
         <button type="submit">Login</button>
+        <% } %> <% if (admin) { %>
+        <a href="/logout" class="logout-link">logout</a>
+        <% } %>
       </form>
     </div>
-    <div class="date-updated">updated: 25/08/24</div>
+    <div class="date-updated">updated: 16/09/24</div>
     <%- body %>
   </body>
 </html>
