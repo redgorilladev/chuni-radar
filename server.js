@@ -7,6 +7,7 @@ const mysql = require("mysql2");
 const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const cron = require("node-cron");
 
 const app = express();
 
@@ -44,20 +45,6 @@ const sqlChartID = "SELECT chart_id FROM songs";
 
 const songs = [];
 
-// static array for testing
-const testArray = [
-  [
-    "2585",
-    "POPS & ANIME",
-    "カオスが極まる",
-    "UNISON SQUARE GARDEN「ブルーロック」",
-    "10",
-    "13",
-    "b77408768afa58d4.jpg",
-  ],
-  ["2586", "POPS & ANIME", "唱", "Ado", "8", "12+", "2274030518738fc8.jpg"],
-];
-
 // MySQL connection config
 const connection = mysql.createConnection({
   host: "localhost",
@@ -74,21 +61,6 @@ connection.connect((error) => {
     console.log("connected to MySQL database");
   }
 });
-
-// query the MySQL DB
-function querySongs() {
-  connection.query("SELECT * FROM songs", function (err, result) {
-    if (err) throw err;
-    console.log(result);
-  });
-}
-
-// testing how to insert data from array into MySQL DB
-function insertFromArray() {
-  connection.query(sql, [songs], function (err) {
-    if (err) throw err;
-  });
-}
 
 // query db for existing songs and store them in an array
 // pull data from chunithm music.json
@@ -111,10 +83,7 @@ async function getData() {
     }
     const json = await response.json();
     json.forEach((song) => {
-      if (existingSongs.includes(Number(song.id))) {
-        return;
-      }
-      if (song.id < 8000) {
+      if (!existingSongs.includes(Number(song.id)) && song.id < 8000) {
         songs.push([
           song.id,
           song.catname,
@@ -133,10 +102,14 @@ async function getData() {
   console.log(songs);
 
   // insert the new songs into the db
-  connection.query(sql, [songs], function (err, result) {
-    if (err) throw err;
-    console.log(result);
-  });
+  if (songs.length > 0) {
+    connection.query(sql, [songs], function (err, result) {
+      if (err) throw err;
+      console.log(`Inserted ${result.affectedRows} songs.`);
+    });
+  } else {
+    console.log("No new songs to insert");
+  }
 }
 
 // index route, handles landing page and user search results
@@ -175,6 +148,19 @@ app.get("/", (req, res) => {
   }
 });
 
+app.get("/random", (req, res) => {
+  const charts = [];
+  connection.query(sqlChartID, function (err, result) {
+    if (err) throw err;
+    result.forEach((item) => {
+      charts.push(item.chart_id);
+    });
+    const random = Math.floor(Math.random() * charts.length);
+    // console.log(charts[random]);
+    res.redirect(`/${charts[random]}#master`);
+  });
+});
+
 app.post("/", (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
@@ -209,7 +195,6 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/:id", (req, res) => {
-  // add undefined/null/empty check for req.params.id ?
   const chart_id = req.params.id;
   let admin;
   if (req.session.loggedin) {
@@ -225,6 +210,7 @@ app.get("/:id", (req, res) => {
 
 app.post("/:id", (req, res) => {
   const chart_id = req.params.id;
+  // error check for chart_id??
   const piano = req.body.pianoSelect;
   const stamina = req.body.staminaSelect;
   const slide = req.body.slideSelect;
@@ -266,7 +252,10 @@ app.post("/:id", (req, res) => {
   });
 });
 
-//use this function to update the songs db whenever a new batch of songs are added
+//use this function to manually update the songs db whenever a new batch of songs are added
 //getData();
+
+// cron schedule to run the getData function every thursday at 11am using the systems local time
+cron.schedule("0 11 * * 4", getData);
 
 app.listen(process.env.PORT || 3000);

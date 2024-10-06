@@ -2,18 +2,14 @@
 
 features/functions
     - limit results to X per page or load more button / on scroll
-    - featured chart / random chart 
+    - featured chart
 
 CSS / Styling
     - choose font for header
-    - chart jacket size being 0 before the image loads?
     - make search bar position sticky when scrolling past
-    - fix layout for very long song titles on chart page e.g. id 771
     - header logo shifts a little to the right on chart page compared to search page, mobile layout seems fine
-    - change the admin login open button to menu icon?
 
 canvas
-    - make scale animation work on song page
     - '?' too high on desktop layout, working fine on mobile layout
 
 DB
@@ -27,10 +23,16 @@ Search
     - add expandable section for fitlers, e.g. check boxes for expert/ultima/master
 
 Chart page
-    - error check the params.id for chart GET route
-    - chart video link uses correct difficulty based on active diff button
+    - error check the params.id for chart POST route?
     - comment section for chart discussion
-    - !check the admin login is secure enough!
+
+About page
+    - add about page
+    - include faqs, contact, credits, 
+
+Server
+    - check which timezone the server is hosted and adjust the cron schedule to line up with JP thursday 11am
+    - ! hash the admin login password, with bcrypt? !
 
 
 

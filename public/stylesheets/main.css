@@ -441,8 +441,6 @@ h6 {
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
-  /* background-color: hsla(0, 0%, 0%, 0.6);
-  border-radius: 10px; */
 }
 
 .offscreen {
@@ -457,12 +455,24 @@ h6 {
   text-decoration: none;
   color: black;
   background-color: white;
+  padding: 0.25rem;
+}
+
+.admin-login-title {
+  color: white;
 }
 
 #openLoginForm {
   position: absolute;
-  top: 15px;
+  top: 25px;
   left: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.randomChart {
+  margin: 0 5px;
 }
 
 @media (max-width: 500px) {

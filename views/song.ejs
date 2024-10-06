@@ -56,19 +56,19 @@
                 <% if (item.difficulty) { %>
                     <% if (item.difficulty == 'master') {%>
                     <div class="diff-level master">Master <%= item.lev_mas %></div>
-                        <a class="chart-link" href='https://www.youtube.com/results?search_query=<%=item.title%>+<%=item.difficulty%>+Chunithm' target="_blank">
+                        <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=item.title%>"+<%=item.difficulty%>+Chunithm' target="_blank">
                             <img class="video-icon" src="/tv-white.png" >
                             <span>chart video</span>
                         </a>
                     <% } else if (item.difficulty == 'expert') { %>
                     <div class="diff-level expert">Expert <%= item.lev_exp %></div>
-                        <a class="chart-link" href='https://www.youtube.com/results?search_query=<%=item.title%>+<%=item.difficulty%>+Chunithm' target="_blank">
+                        <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=item.title%>"+<%=item.difficulty%>+Chunithm' target="_blank">
                             <img class="video-icon" src="/tv-white.png" >
                             <span>chart video</span>
                         </a>
                 <% } else { %>
                     <div class="diff-level ultima">Ultima <%= item.lev_ult %></div>
-                        <a class="chart-link" href='https://www.youtube.com/results?search_query=<%=item.title%>+<%=item.difficulty%>+Chunithm' target="_blank">
+                        <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=item.title%>"+<%=item.difficulty%>+Chunithm' target="_blank">
                             <img class="video-icon" src="/tv-white.png" >
                             <span>chart video</span>
                         </a>
@@ -102,7 +102,7 @@
             </div>
             <div class="item-details-col">
                 <% if (result.length > 0) { %>
-                <a class="chart-link" href='https://www.youtube.com/results?search_query=<%=result[0].title%>+Chunithm' target="_blank">
+                <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=result[0].title%>"+Chunithm' target="_blank">
                     <img class="video-icon" src="/tv-white.png" >
                     <span>chart video</span>
                 </a>

@@ -14,10 +14,14 @@
     <title>Chuni Radar</title>
   </head>
   <body>
-    <button id="openLoginForm">admin</button>
+    <button id="openLoginForm">
+      <img src="/menu_24dp.svg" />
+    </button>
     <%- include('../partials/header.ejs') %>
     <div class="offscreen closed" id="login-div">
       <form action="/" method="post" class="login-form">
+        <% if (!admin) { %>
+        <span class="admin-login-title">admin login</span>
         <input
           type="text"
           name="username"
@@ -30,14 +34,18 @@
           id="password"
           placeholder="enter password"
         />
-        <% if (!admin) { %>
         <button type="submit">Login</button>
         <% } %> <% if (admin) { %>
         <a href="/logout" class="logout-link">logout</a>
         <% } %>
       </form>
     </div>
-    <div class="date-updated">updated: 16/09/24</div>
+    <div class="date-updated">
+      updated: 06/10/24
+      <a href="/random" class="randomChart">
+        <img src="/dice.svg" />
+      </a>
+    </div>
     <%- body %>
   </body>
 </html>
