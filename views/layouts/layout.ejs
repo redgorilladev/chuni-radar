@@ -17,8 +17,24 @@
     <button id="openLoginForm">
       <img src="/menu_24dp.svg" />
     </button>
-    <%- include('../partials/header.ejs') %>
     <div class="offscreen closed" id="login-div">
+      <div class="menu">
+        <button id="closeMenu">
+          <img src="/close.svg" alt="" />
+        </button>
+        <a href="/random" class="menu-item">
+          <img class="menu-icon" src="/dice.svg" alt="" />
+          <span class="menu-title">Random Chart</span>
+        </a>
+        <a href="" class="menu-item">
+          <img class="menu-icon" src="/info.svg" alt="" />
+          <span class="menu-title">About</span>
+        </a>
+        <a href="" class="menu-item">
+          <img class="menu-icon" src="/contact.svg" alt="" />
+          <span class="menu-title">Contact</span>
+        </a>
+      </div>
       <form action="/" method="post" class="login-form">
         <% if (!admin) { %>
         <span class="admin-login-title">admin login</span>
@@ -40,12 +56,9 @@
         <% } %>
       </form>
     </div>
-    <div class="date-updated">
-      updated: 06/10/24
-      <a href="/random" class="randomChart">
-        <img src="/dice.svg" />
-      </a>
-    </div>
+    <div id="content-blur"></div>
+    <%- include('../partials/header.ejs') %>
+    <div class="date-updated">updated: 06/10/24</div>
     <%- body %>
   </body>
 </html>
