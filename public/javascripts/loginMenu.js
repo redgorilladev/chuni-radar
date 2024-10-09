@@ -20,27 +20,42 @@ function unlockScroll() {
 }
 
 if (adminLoginBtn != null) {
-  adminLoginBtn.addEventListener("click", () => {
-    if (loginDiv.classList.contains("closed")) {
-      loginDiv.style.transform = "translate(100%)";
-      loginDiv.style.transition = "200ms ease-in-out";
-      loginDiv.classList.toggle("open");
-      loginDiv.classList.toggle("closed");
-      contentBlur.classList.toggle("blur");
-      contentBlur.style.opacity = "0.5";
-      lockScroll();
-    }
-  });
+  adminLoginBtn.addEventListener("click", openSidebar);
 }
 
 if (closeMenuBtn != null) {
-  closeMenuBtn.addEventListener("click", () => {
+  closeMenuBtn.addEventListener("click", closeSidebar);
+}
+
+function openSidebar() {
+  if (loginDiv.classList.contains("closed")) {
+    loginDiv.style.transform = "translate(100%)";
+    loginDiv.style.transition = "200ms ease-in-out";
+    loginDiv.classList.toggle("open");
+    loginDiv.classList.toggle("closed");
+    contentBlur.classList.toggle("blur");
+    lockScroll();
+  }
+}
+
+function closeSidebar() {
+  if (loginDiv.classList.contains("open")) {
     loginDiv.style.transform = "translate(-100%)";
     loginDiv.style.transition = "200ms ease-in-out";
     loginDiv.classList.toggle("closed");
     loginDiv.classList.toggle("open");
     contentBlur.classList.toggle("blur");
-    contentBlur.style.opacity = "0";
     unlockScroll();
-  });
+  }
 }
+
+document.onclick = function (e) {
+  if (
+    !loginDiv.contains(e.target) &&
+    loginDiv.classList.contains("open") &&
+    !adminLoginBtn.contains(e.target)
+  ) {
+    console.log("clicked outside sidebar");
+    closeSidebar();
+  }
+};

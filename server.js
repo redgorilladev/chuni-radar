@@ -34,7 +34,7 @@ const sqlID =
 const sql =
   "INSERT INTO songs (chart_id, category, title, artist, lev_exp, lev_mas, image_file_name) VALUES ?";
 const sqlRadar =
-  "SELECT songs.id, title, artist, songs.chart_id, category, image_file_name, lev_mas, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.chart_id = radar.chart_id ORDER BY songs.id DESC LIMIT 18;";
+  "SELECT songs.id, title, artist, songs.chart_id, category, image_file_name, lev_mas, lev_exp, lev_ult, piano, stamina, slide, tricky, crosshand, air, difficulty FROM songs LEFT JOIN radar ON songs.chart_id = radar.chart_id ORDER BY songs.id DESC LIMIT 18;";
 const sqlInsert =
   "INSERT INTO radar (piano, stamina, slide, tricky, crosshand, air, chart_id, difficulty) VALUES (?)";
 const sqlUpdate =

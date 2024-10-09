@@ -5,6 +5,9 @@ features/functions
     - limit results to X per page or load more button / on scroll
     - featured chart
 
+Index page
+    - !decide on whether to show only master diffs or include exp and ult too, might clutter the home page with multiple entries per song!
+
 CSS / Styling
     - choose font for header/site
     - !need to decrease header title size from roughly 350px screen size!
@@ -36,8 +39,8 @@ About page
     - !include faqs, contact, credits, etc. ! 
 
 Sidebar Menu
-    - !when open dim the main body, copy from youtube clone!
-    - !add click outside sidebar to close from youtube clone!
+    - add functionality to about and contact links
+
 
 Server
     - check which timezone the server is hosted and adjust the cron schedule to line up with JP thursday 11am
