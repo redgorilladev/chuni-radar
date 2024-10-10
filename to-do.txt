@@ -10,9 +10,6 @@ Index page
 
 CSS / Styling
     - choose font for header/site
-    - !need to decrease header title size from roughly 350px screen size!
-    - !change the title hover from white to something better!
-    - !change chart name hover color to something better!
     - *make search bar position sticky when scrolling past*
     - header logo shifts a little to the right on chart page compared to search page, mobile layout seems fine
 
@@ -40,6 +37,7 @@ About page
 
 Sidebar Menu
     - add functionality to about and contact links
+    - !finish the login form js, add loading spinner / and error messages for client side!
 
 
 Server

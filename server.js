@@ -162,24 +162,34 @@ app.get("/random", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
+  console.log("Request Body:", req.body);
+  let username = req.body.uValue;
+  let password = req.body.pValue;
 
   if (username && password) {
     connection.query(
       "SELECT * FROM users WHERE username = ? AND password = ?",
       [username, password],
       function (err, results) {
-        if (err) throw err;
+        console.log(results);
+        if (err) {
+          return res.status(500).json({ message: "Internal server error" });
+        }
 
         if (results.length > 0) {
           req.session.loggedin = true;
-          res.redirect("/");
+          return res.status(200).json({ message: "Login Successful" });
         } else {
-          res.send("incorrect username or password");
+          return res
+            .status(401)
+            .json({ message: "Invalid username or password" });
         }
       }
     );
+  } else {
+    res
+      .status(400)
+      .json({ message: "Please enter both username and password" });
   }
 });
 

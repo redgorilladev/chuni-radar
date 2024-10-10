@@ -4,8 +4,13 @@ const masterBtn = document.getElementById("masterBtn");
 const expertBtn = document.getElementById("expertBtn");
 const ultimaBtn = document.getElementById("ultimaBtn");
 
-masterBtn.addEventListener("click", showMaster);
-expertBtn.addEventListener("click", showExpert);
+if (masterBtn != null) {
+  masterBtn.addEventListener("click", showMaster);
+}
+
+if (expertBtn != null) {
+  expertBtn.addEventListener("click", showExpert);
+}
 
 if (ultimaBtn != null) {
   ultimaBtn.addEventListener("click", showUltima);

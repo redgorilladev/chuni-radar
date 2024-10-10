@@ -35,7 +35,7 @@
           <span class="menu-title">Contact</span>
         </a>
       </div>
-      <form action="/" method="post" class="login-form">
+      <form action="/" method="post" class="login-form" id="loginForm">
         <% if (!admin) { %>
         <span class="admin-login-title">admin login</span>
         <input
@@ -43,14 +43,16 @@
           name="username"
           id="username"
           placeholder="enter username"
+          onkeyup="enableLoginBtn()"
         />
         <input
           type="password"
           name="password"
           id="password"
           placeholder="enter password"
+          onkeyup="enableLoginBtn()"
         />
-        <button type="submit">Login</button>
+        <button id="loginBtn" type="submit">Login</button>
         <% } %> <% if (admin) { %>
         <a href="/logout" class="logout-link">logout</a>
         <% } %>
