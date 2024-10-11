@@ -56,6 +56,10 @@
         <% } %> <% if (admin) { %>
         <a href="/logout" class="logout-link">logout</a>
         <% } %>
+        <div id="login-message">
+          <span id="message"></span>
+          <img class="loading-spinner" src="/progress.svg" alt="" />
+        </div>
       </form>
     </div>
     <div id="content-blur"></div>

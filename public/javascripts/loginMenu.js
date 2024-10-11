@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const username = document.getElementById("username");
   const password = document.getElementById("password");
   const loginForm = document.getElementById("loginForm");
+  const loadingSpinner = document.querySelector(".loading-spinner");
+  const message = document.getElementById("message");
 
   loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -26,9 +28,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (response.ok) {
         console.log(result.message);
-        window.location.href = "/";
+        loadingSpinner.style.display = "block";
+        setTimeout(() => {
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 1000);
+          message.innerText = result.message;
+          message.style.color = "green";
+        }, 1000);
       } else {
         console.log(result.message);
+        message.innerText = "";
+        loadingSpinner.style.display = "block";
+        setTimeout(() => {
+          message.innerText = result.message;
+          message.style.color = "red";
+          loadingSpinner.style.display = "none";
+        }, 1500);
       }
     } catch (error) {
       console.error("Error:", error);

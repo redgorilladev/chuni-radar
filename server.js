@@ -178,11 +178,13 @@ app.post("/", (req, res) => {
 
         if (results.length > 0) {
           req.session.loggedin = true;
-          return res.status(200).json({ message: "Login Successful" });
+          return res
+            .status(200)
+            .json({ message: "Login Successful Redirecting Now..." });
         } else {
           return res
             .status(401)
-            .json({ message: "Invalid username or password" });
+            .json({ message: "Invalid Username or Password" });
         }
       }
     );

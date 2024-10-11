@@ -37,7 +37,6 @@ About page
 
 Sidebar Menu
     - add functionality to about and contact links
-    - !finish the login form js, add loading spinner / and error messages for client side!
 
 
 Server
