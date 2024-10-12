@@ -1,7 +1,8 @@
 <div class="title">
   <% if (searchOptions != null) { %>
   <h2 class="page-header">
-    <%= result.length %> Results for "<%= searchOptions %>"
+    <% if (attribute) { %> top 10 <%= searchOptions %> charts <% } else { %> <%=
+    result.length %> Results for "<%= searchOptions %>" <% } %>
   </h2>
   <% } else {%>
   <h2 class="page-header">Recently Added</h2>

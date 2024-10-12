@@ -132,6 +132,7 @@ app.get("/", (req, res) => {
         res.render("index", {
           result: result,
           searchOptions: searchOptions,
+          attribute: false,
           admin: admin,
         });
       }
@@ -142,10 +143,37 @@ app.get("/", (req, res) => {
       res.render("index", {
         result: result,
         searchOptions: null,
+        attribute: false,
         admin: admin,
       });
     });
   }
+});
+
+app.get("/top/:attribute", (req, res) => {
+  let admin;
+  if (req.session.loggedin) {
+    admin = true;
+  } else {
+    admin = false;
+  }
+  let attributeName = req.params.attribute;
+  const sqlAttribute = `SELECT title, artist, songs.chart_id, category, image_file_name, lev_mas, lev_exp, lev_ult, piano, stamina, slide, tricky, crosshand, air, difficulty 
+                     FROM songs 
+                     LEFT JOIN radar ON songs.chart_id = radar.chart_id 
+                     ORDER BY ${attributeName} DESC 
+                     LIMIT 10`;
+  console.log(attributeName);
+  connection.query(sqlAttribute, function (err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.render("index", {
+      result: result,
+      searchOptions: attributeName,
+      attribute: true,
+      admin: admin,
+    });
+  });
 });
 
 app.get("/random", (req, res) => {

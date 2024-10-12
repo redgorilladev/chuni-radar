@@ -11,7 +11,6 @@ Index page
 CSS / Styling
     - choose font for header/site
     - *make search bar position sticky when scrolling past*
-    - header logo shifts a little to the right on chart page compared to search page, mobile layout seems fine
 
 canvas
     - '?' too high on desktop layout, working fine on mobile layout
@@ -23,7 +22,7 @@ DB
     - add radar created by column to the table?
 
 Search
-    - *filter by radar attributes*
+    - *add whitelist to prevent sql injection on attribute routes*
     - add expandable section for fitlers, e.g. check boxes for expert/ultima/master
 
 Chart page
@@ -36,7 +35,9 @@ About page
     - !include faqs, contact, credits, etc. ! 
 
 Sidebar Menu
-    - add functionality to about and contact links
+    - !add functionality to about and contact links!
+    - !change icon for each attribute link!
+    - *refactor login fetch code*
 
 
 Server

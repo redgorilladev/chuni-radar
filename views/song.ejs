@@ -54,21 +54,23 @@
             </div>
             <div class="item-details-col">
                 <% if (item.difficulty) { %>
+                    <% let searchTitle = encodeURIComponent(item.title) %>
+                    <% console.log(searchTitle) %>
                     <% if (item.difficulty == 'master') {%>
                     <div class="diff-level master">Master <%= item.lev_mas %></div>
-                        <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=item.title%>"+<%=item.difficulty%>+Chunithm' target="_blank">
+                        <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=searchTitle%>"+<%=item.difficulty%>+Chunithm' target="_blank">
                             <span class="video-link">chart video</span>
                             <img class="video-icon" src="/newtab.svg" >
                         </a>
                     <% } else if (item.difficulty == 'expert') { %>
                     <div class="diff-level expert">Expert <%= item.lev_exp %></div>
-                        <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=item.title%>"+<%=item.difficulty%>+Chunithm' target="_blank">
+                        <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=searchTitle%>"+<%=item.difficulty%>+Chunithm' target="_blank">
                             <span class="video-link">chart video</span>
                             <img class="video-icon" src="/newtab.svg" >
                         </a>
                 <% } else { %>
                     <div class="diff-level ultima">Ultima <%= item.lev_ult %></div>
-                        <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=item.title%>"+<%=item.difficulty%>+Chunithm' target="_blank">
+                        <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=searchTitle%>"+<%=item.difficulty%>+Chunithm' target="_blank">
                             <span class="video-link">chart video</span>
                             <img class="video-icon" src="/newtab.svg" >
                         </a>
@@ -102,7 +104,8 @@
             </div>
             <div class="item-details-col">
                 <% if (result.length > 0) { %>
-                <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=result[0].title%>"+Chunithm' target="_blank">
+                <% let searchTitle = encodeURIComponent(result[0].title) %>
+                <a class="chart-link" href='https://www.youtube.com/results?search_query="<%=searchTitle%>"+Chunithm' target="_blank">
                     <span class="video-link">chart video</span>
                     <img class="video-icon" src="/newtab.svg" >
                 </a>

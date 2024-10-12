@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (response.ok) {
         console.log(result.message);
+        message.innerText = "";
         loadingSpinner.style.display = "block";
         setTimeout(() => {
           setTimeout(() => {
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
           message.innerText = result.message;
           message.style.color = "red";
           loadingSpinner.style.display = "none";
-        }, 1500);
+        }, 1000);
       }
     } catch (error) {
       console.error("Error:", error);
